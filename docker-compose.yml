@@ -1,0 +1,18 @@
+version: '3'
+services:
+  hug_ep:
+    command: hug -f /scripts/pillow.py
+    environment:
+      - PYTHONUNBUFFERED=0
+      - NO_PROXY=127.0.0.1
+    build:
+      context: .
+      args:
+        - proxy=${http_proxy}
+        - no_proxy=${no_proxy}
+      dockerfile: ./images/python/Dockerfile
+    ports:
+        - "18000:8000"
+    volumes:
+      - ./scripts:/scripts
+
